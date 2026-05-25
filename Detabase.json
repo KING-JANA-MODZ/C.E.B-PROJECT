@@ -1,27 +1,14 @@
-<div id="display-area" style="color: #00ffcc; font-family: monospace;">
-    Loading...
+<div id="data-display" style="background: #161b22; padding: 15px; border: 1px solid #00ffcc; border-radius: 10px; color: #fff;">
+    ටිකක් ඉන්න, දත්ත Load වෙනවා...
 </div>
 
 <script>
-    async function loadData() {
-        try {
-            const url = "https://raw.githubusercontent.com/KING-JANA-MODZ/C.E.B-PROJECT/refs/heads/main/Detabase.json";
-            const res = await fetch(url);
-            const data = await res.json();
-            
-            const area = document.getElementById('display-area');
-            if(data.length === 0) {
-                area.innerHTML = "දැනට සැලසුම්ගත කප්පාදුවක් නොමැත.";
-            } else {
-                area.innerHTML = data.map(x => `
-                    <div style="background: #161b22; padding: 10px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #00ffcc;">
-                        <strong>📅 ${x.d}</strong> | ${x.t}<br>
-                        <strong>📍 ${x.a}</strong>
-                    </div>`).join('');
-            }
-        } catch (e) {
-            document.getElementById('display-area').innerHTML = "දත්ත ලබාගත නොහැක.";
-        }
-    }
-    loadData();
+    fetch('https://raw.githubusercontent.com/KING-JANA-MODZ/C.E.B-PROJECT/main/db.txt')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('data-display').innerHTML = data || "දැනට දත්ත ඇතුළත් කර නොමැත.";
+    })
+    .catch(err => {
+        document.getElementById('data-display').innerHTML = "කෝඩ් එකේ මොකක් හරි අවුලක් තියෙනවා.";
+    });
 </script>
